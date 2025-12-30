@@ -3,8 +3,11 @@ import {BsCartPlus} from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { getFormattedCurrency } from "../../utils/formatedValues";
+import { ContextCart } from "../../services/context";
+import { useContext } from "react";
 
-interface productsProps {
+
+export interface productProps {
     id: number;
     title: string;
     description: string;
@@ -13,7 +16,8 @@ interface productsProps {
 }
 
 export function Home(){
-    const [products, setProducts] = useState<productsProps[]>([]);
+    const [products, setProducts] = useState<productProps[]>([]);
+    const {AddItemCart: AddCart} = useContext(ContextCart);
 
     useEffect(()=>{
         async function getProducts(){
@@ -25,6 +29,11 @@ export function Home(){
     },
      [])
 
+    function handleAddCartItem(product: productProps){
+        AddCart(product);
+        console.log("entrei");
+    }
+
 
     return(
         <div className="w-full">
@@ -33,15 +42,15 @@ export function Home(){
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                     {
-                        products.map((item) =>{ return(
+                        products.map((product) =>{ return(
                             <section className="w-full">
-                                <img className="w-full max-h-70 rounded-lg mb-2" src={item.cover}
-                                alt={item.title}
+                                <img className="w-full max-h-70 rounded-lg mb-2" src={product.cover}
+                                alt={product.title}
                                 />
-                                <p className="font-medium mt-1 mb-2">{item.title}</p>
+                                <p className="font-medium mt-1 mb-2">{product.title}</p>
                                 <div className="flex gap-3 items-center">
-                                    <strong className="text-gray-700/90">{getFormattedCurrency(item.price)}</strong>
-                                    <button className="bg-gray-900 p-1 rounded">
+                                    <strong className="text-gray-700/90">{getFormattedCurrency(product.price)}</strong>
+                                    <button onClick={() => handleAddCartItem(product)} className="bg-gray-900 p-1 rounded">
                                         <BsCartPlus color="white" size={20}/>
                                     </button>
                                 </div>
