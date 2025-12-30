@@ -1,6 +1,7 @@
 
 import { createContext, useState, type ReactNode } from "react";
 import { type productProps } from "../pages/home";
+import toast from "react-hot-toast";
 
 interface CartProviderProps {
     children: ReactNode;
@@ -32,7 +33,7 @@ export default function CartProvider ({children}: CartProviderProps){
 
     function addItemCart(product: productProps){
         let index = cart.findIndex(cartItem => cartItem.id === product.id)
-
+        toast.success('Produto adicionado com sucesso!')
         if(index !== -1){
             let cartList = cart;
             cartList[index].amount = cartList[index].amount + 1;

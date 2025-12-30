@@ -5,6 +5,7 @@ import { api } from "../../services/api";
 import { getFormattedCurrency } from "../../utils/formatedValues";
 import { ContextCart } from "../../services/context";
 import { useContext } from "react";
+import { Link } from "react-router";
 
 
 export interface productProps {
@@ -31,7 +32,6 @@ export function Home(){
 
     function handleAddCartItem(product: productProps){
         AddCart(product);
-        console.log("entrei");
     }
 
 
@@ -44,12 +44,15 @@ export function Home(){
                     {
                         products.map((product) =>{ return(
                             <section className="w-full">
-                                <img className="w-full max-h-70 rounded-lg mb-2" src={product.cover}
-                                alt={product.title}
-                                />
-                                <p className="font-medium mt-1 mb-2">{product.title}</p>
+                                <Link to={`/products/${product.id}`}>
+                                    <img className="w-full max-h-70 rounded-lg mb-2 transition-transform delay-150 hover:scale-110" src={product.cover}
+                                    alt={product.title}
+                                    />  
+                                    <p className="font-medium mt-1 mb-2">{product.title}</p>                              
+                                </Link>
+
                                 <div className="flex gap-3 items-center">
-                                    <strong className="text-gray-700/90">{getFormattedCurrency(product.price)}</strong>
+                                    <strong className="text-gray-700/90 text-xl">{getFormattedCurrency(product.price)}</strong>
                                     <button onClick={() => handleAddCartItem(product)} className="bg-gray-900 p-1 rounded">
                                         <BsCartPlus color="white" size={20}/>
                                     </button>

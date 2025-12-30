@@ -2,6 +2,7 @@ import './index.css';
 import { createBrowserRouter } from 'react-router';
 import { Home } from './pages/home';
 import { Cart } from './pages/cart';
+import { DetailsProduct } from './pages/detailsProduct';
 import { Layout } from './components/layout';
 
 
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <Cart/>
+      },
+      {
+        path: '/products/:productId',
+        element: <DetailsProduct/>
       }
     ]
   }
