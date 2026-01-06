@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ContextCart } from "../../services/context";
 import { Link } from "react-router";
 import { getFormattedCurrency } from "../../utils/formatedValues";
